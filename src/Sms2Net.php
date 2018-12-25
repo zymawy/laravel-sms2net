@@ -23,6 +23,7 @@ class Sms2Net
     protected $phoneBookUrl = "https://www.net2sms.net/api/GetPhoneBook.asp?";
     protected $sendersUrl = "https://www.net2sms.net/api/GetSenders.asp?";
     protected $getMessagesUrl = "https://www.net2sms.net/api/getmessages.asp?";
+    protected $contactUsUrl = "https://www.net2sms.net/api/SendEmail.asp?";
 
 
     public function __construct($config = array())
@@ -158,6 +159,25 @@ class Sms2Net
             'form_params' => [
                 'userName' => $this->config['userName'],
                 'password' => $this->config['password'],
+            ]
+        ]);
+        return $response->getBody();
+    }
+
+    /**
+     *This form to email web service to contact us
+     * @param $email
+     * @param $message
+     * @return XML
+     */
+    public function contactUs($email, $message)
+    {
+        $response = $this->client->request('GET', $this->contactUsUrl, [
+            'form_params' => [
+                'userName' => $this->config['userName'],
+                'password' => $this->config['password'],
+                'Email' => $email,
+                'Body' => $message
             ]
         ]);
         return $response->getBody();
