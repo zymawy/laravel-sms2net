@@ -18,6 +18,7 @@ class Sms2Net
     protected $tranUrl = "https://www.net2sms.net/api/querytran.asp?";
     protected $authUrl = "https://www.net2sms.net/api/authenticate.asp?";
     protected $accessLevelUrl = "https://www.net2sms.net/api/Getlevel.asp?";
+    protected $groupsUrl = "https://www.net2sms.net/api/GetGroups.asp?";
 
 
     public function __construct($config = array())
@@ -76,5 +77,14 @@ class Sms2Net
       return  $this->handleGetBalanceExceptions($response);
     }
 
-
+    public function getGroups()
+    {
+        $response = $this->client->request('GET',$this->groupsUrl,[
+            'form_params' => [
+                'userName' => $this->config['userName'],
+                'password' => $this->config['password'],
+            ]
+        ]);
+        return  $response->getBody();;
+    }
 }
