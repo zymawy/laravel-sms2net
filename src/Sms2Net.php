@@ -65,6 +65,39 @@ class Sms2Net
         return $this->handleSendExceptions($response);
     }
 
+    /**
+     * Sending SMS Messages For One Number
+     * Using GET Is Faster Then POST But Not Secure As Post,
+     * @param $numbers
+     * @param string $SMSData
+     * @return Response
+     */
+
+    public function sendToOne($numbers, $SMSData)
+    {
+
+        $numbers = $this->checkNumbers($numbers);
+        $this->config['SMSData'] = $SMSData;
+        $this->config['phonenumbers'] = $numbers;
+
+        $response = $this->client->request('GET', $this->sendUrl, [
+            'form_params' => [
+                'userName' => $this->config['userName'],
+                'password' => $this->config['password'],
+                'phonenumbers' => $this->config['phonenumbers'],
+                'sender' => $this->config['sender'],
+                'SMSData' => $this->config['SMSData'],
+                'SMSTest' => $this->config['SMSTest'],
+                'Unicode' => $this->config['Unicode'],
+                'SMSDateTime' => $this->config['SMSDateTime'],
+                'SMSGateway' => $this->config['SMSGateway'],
+                'SmsRef' => $this->config['SmsRef'],
+            ]
+        ]);
+
+        return $this->handleSendExceptions($response);
+    }
+
     /*
      * This will return the number of credits available on this particular account. The account balance is returned
      *  as a floating point value.
