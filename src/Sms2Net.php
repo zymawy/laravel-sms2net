@@ -8,7 +8,7 @@ use Zymawy\Sms2Net\Traits\Helpers;
 
 class Sms2Net
 {
-    use HandleErrors,Helpers;
+    use HandleErrors, Helpers;
 
     protected $config;
     protected $client;
@@ -19,7 +19,10 @@ class Sms2Net
     protected $authUrl = "https://www.net2sms.net/api/authenticate.asp?";
     protected $accessLevelUrl = "https://www.net2sms.net/api/Getlevel.asp?";
     protected $groupsUrl = "https://www.net2sms.net/api/GetGroups.asp?";
-    protected $groupofMemberUrl = "https://www.net2sms.net/api/GetMembers.asp?";
+    protected $groupOfMemberUrl = "https://www.net2sms.net/api/GetMembers.asp?";
+    protected $phoneBookUrl = "https://www.net2sms.net/api/GetPhoneBook.asp?";
+    protected $sendersUrl = "https://www.net2sms.net/api/GetSenders.asp?";
+    protected $getMessagesUrl = "https://www.net2sms.net/api/getmessages.asp?";
 
 
     public function __construct($config = array())
@@ -50,32 +53,32 @@ class Sms2Net
                 'phonenumbers' => $this->config['phonenumbers'],
                 'sender' => $this->config['sender'],
                 'SMSData' => $this->config['SMSData'],
-                'SMSTest' =>  $this->config['SMSTest'],
+                'SMSTest' => $this->config['SMSTest'],
                 'Unicode' => $this->config['Unicode'],
                 'SMSDateTime' => $this->config['SMSDateTime'],
                 'SMSGateway' => $this->config['SMSGateway'],
                 'SmsRef' => $this->config['SmsRef'],
-                ]
+            ]
         ]);
 
-    return $this->handleSendExceptions($response);
+        return $this->handleSendExceptions($response);
     }
 
-/*
- * This will return the number of credits available on this particular account. The account balance is returned
- *  as a floating point value.
- * @return Response
- */
+    /*
+     * This will return the number of credits available on this particular account. The account balance is returned
+     *  as a floating point value.
+     * @return Response
+     */
     public function geBalance()
     {
-        $response = $this->client->request('GET',$this->balanceUrl,[
+        $response = $this->client->request('GET', $this->balanceUrl, [
             'form_params' => [
                 'userName' => $this->config['userName'],
                 'password' => $this->config['password'],
             ]
         ]);
 
-      return  $this->handleGetBalanceExceptions($response);
+        return $this->handleGetBalanceExceptions($response);
     }
 
     /**
@@ -84,13 +87,13 @@ class Sms2Net
      */
     public function getGroups()
     {
-        $response = $this->client->request('GET',$this->groupsUrl,[
+        $response = $this->client->request('GET', $this->groupsUrl, [
             'form_params' => [
                 'userName' => $this->config['userName'],
                 'password' => $this->config['password'],
             ]
         ]);
-        return  $response->getBody();
+        return $response->getBody();
     }
 
     /**
@@ -100,13 +103,63 @@ class Sms2Net
      */
     public function getOneGroup($groupID)
     {
-        $response = $this->client->request('GET',$this->groupofMemberUrl,[
+        $response = $this->client->request('GET', $this->groupOfMemberUrl, [
             'form_params' => [
                 'userName' => $this->config['userName'],
                 'password' => $this->config['password'],
                 'GroupID' => $groupID,
             ]
         ]);
-        return  $response->getBody();
+        return $response->getBody();
+    }
+
+    /**
+     * This will return a list of all groups & members for specific user and in an XML format
+     *
+     * @return XML
+     */
+    public function phoneBook()
+    {
+        $response = $this->client->request('GET', $this->phoneBookUrl, [
+            'form_params' => [
+                'userName' => $this->config['userName'],
+                'password' => $this->config['password'],
+            ]
+        ]);
+        return $response->getBody();
+    }
+
+
+    /**
+     * This will return a list of all Senders for specific user in an XML format
+     *
+     * @return XML
+     */
+    public function sender()
+    {
+        $response = $this->client->request('GET', $this->sendersUrl, [
+            'form_params' => [
+                'userName' => $this->config['userName'],
+                'password' => $this->config['password'],
+            ]
+        ]);
+        return $response->getBody();
+    }
+
+
+    /**
+     * This will return a list of all Senders for specific user in an XML format
+     *
+     * @return XML
+     */
+    public function getMessages()
+    {
+        $response = $this->client->request('GET', $this->getMessagesUrl, [
+            'form_params' => [
+                'userName' => $this->config['userName'],
+                'password' => $this->config['password'],
+            ]
+        ]);
+        return $response->getBody();
     }
 }
