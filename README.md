@@ -5,7 +5,7 @@
 
 You Need To Require The Package In Order It To Work. 
 ```php
-λ composer require zymawy/sms2net   
+λ composer require zymawy/sms2net
 ```
 
 Then Register The Service Provider To `config/app.php` Inside `providers array`
@@ -14,7 +14,7 @@ Then Register The Service Provider To `config/app.php` Inside `providers array`
 /*
 * Package Service Providers...
 */
-Zymawy\Sms2Net\Sms2NetServiceProvider::class,`
+Zymawy\Sms2Net\Sms2NetServiceProvider::class,
 ..Rest of Services
 ]
 ```
@@ -28,7 +28,14 @@ In The Same File Place The Facade Inside `alias array`.
 ..Rest of Services
 ]
 ```
-
+Update You Your `.env`
+ ```dotenv
+ SMS2NET_USERNAME=
+ SMS2NET_PASSWORD=
+ SMS2NET_UNICODE=
+ SMS2NET_SENDER=
+ SMS2NET_IS_TEST=
+ ```
 Finally, You Need To Publish The Config File And The Lang File. 
 So You Can Provide The Account Credentials.
 ```php
