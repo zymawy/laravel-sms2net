@@ -19,6 +19,7 @@ class Sms2Net
     protected $authUrl = "https://www.net2sms.net/api/authenticate.asp?";
     protected $accessLevelUrl = "https://www.net2sms.net/api/Getlevel.asp?";
     protected $groupsUrl = "https://www.net2sms.net/api/GetGroups.asp?";
+    protected $groupofMemberUrl = "https://www.net2sms.net/api/GetMembers.asp?";
 
 
     public function __construct($config = array())
@@ -63,8 +64,8 @@ class Sms2Net
 /*
  * This will return the number of credits available on this particular account. The account balance is returned
  *  as a floating point value.
+ * @return Response
  */
-
     public function geBalance()
     {
         $response = $this->client->request('GET',$this->balanceUrl,[
@@ -77,6 +78,10 @@ class Sms2Net
       return  $this->handleGetBalanceExceptions($response);
     }
 
+    /**
+     * This will return a list of all groups for specific user in an XML format
+     * @return XML
+     */
     public function getGroups()
     {
         $response = $this->client->request('GET',$this->groupsUrl,[
@@ -85,6 +90,23 @@ class Sms2Net
                 'password' => $this->config['password'],
             ]
         ]);
-        return  $response->getBody();;
+        return  $response->getBody();
+    }
+
+    /**
+     *  This will return a list of all members for specific user and group in an XML format
+     * @param $groupID int
+     * @return XML
+     */
+    public function getOneGroup($groupID)
+    {
+        $response = $this->client->request('GET',$this->groupofMemberUrl,[
+            'form_params' => [
+                'userName' => $this->config['userName'],
+                'password' => $this->config['password'],
+                'GroupID' => $groupID,
+            ]
+        ]);
+        return  $response->getBody();
     }
 }
