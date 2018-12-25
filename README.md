@@ -212,5 +212,17 @@ On Success
     <SenderStatus>xxxx</ SenderStatus>
 </Senders>
 ```
+#Contributing
+
+#Security 
+If you discover any security related issues, please email zymawy@gmail.com instead of using the issue tracker.
+
+
+
+#Contact
+Twitter [@RttCy](https://twitter.com/RttCy)
 
 #License
+Laravel-Sms2net
+is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+© 2017 Hamza Zymawy, All rights reserved.
