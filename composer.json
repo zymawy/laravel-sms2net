@@ -1,6 +1,6 @@
 {
   "name": "zymawy/sms2net",
-  "description": ".",
+  "description": "This Simple Package 📦 Can Help You Interacting With Net2SMS API",
   "license": "MIT",
   "keywords": [
     "laravel",
@@ -27,7 +27,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "1.0.x-dev"
+      "dev-master": "0.65"
     }
   },
   "minimum-stability": "stable"

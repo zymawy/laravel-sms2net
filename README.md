@@ -4,26 +4,35 @@
 ## Installtions
 
 You Need To Require The Package In Order It To Work. 
-```Shell 
-    composer require zymawy\sms2net
+```php
+λ composer require zymawy/sms2net   
 ```
 
 Then Register The Service Provider To `config/app.php` Inside `providers array`
 ```php 
-          /*
-          * Package Service Providers...
-          */
-         Zymawy\Sms2Net\Sms2NetServiceProvider::class,`
+'providers' => [
+/*
+* Package Service Providers...
+*/
+Zymawy\Sms2Net\Sms2NetServiceProvider::class,`
+..Rest of Services
+]
 ```
 In The Same File Place The Facade Inside `alias array`. 
 ```php
-        'Sms2Net' => \Zymawy\Sms2Net\Facades\Sms2NetFacade::class,
+/*
+ Class Aliases
+*/
+'aliases' => [
+'Sms2Net' => \Zymawy\Sms2Net\Facades\Sms2NetFacade::class,
+..Rest of Services
+]
 ```
 
 Finally, You Need To Publish The Config File And The Lang File. 
 So You Can Provide The Account Credentials.
-```Shell
-    php artisan vendor:publish --provider="Zymawy\Sms2Net\Sms2NetServiceProvider"
+```php
+λ php artisan vendor:publish --provider="Zymawy\Sms2Net\Sms2NetServiceProvider"
 ```
 
 # Available Functions
@@ -35,25 +44,26 @@ And
 `$message`
 
 ```php
-    $msg =  'In The Name Of Allah The Merciful';
-    $numbers = [
-    	'009665900000000',
-    	'0540000000',
-    	'+966550000000'
-    ];
+$msg =  'In The Name Of Allah The Merciful';
+$numbers = [
+    '009665900000000',
+    '0540000000',
+    '+966550000000'
+];
     
-   $response = Sms2Net::sendToMany($numbers,$msg);
-   
-  //Success
-      {
-        "msg": "تم بنجاح ارسال الرسالة",
-        "code": "Ok 000",
-        "count_delivered_msg": "99",
-        "full_massage": "Ok 000, Message Has Been Sent, [99] ID:9999"
-      }
-  // Errors 
-  ERR: Error number
+$response = Sms2Net::sendToMany($numbers,$msg);
+``` 
+On Success
 ```
+{
+    "msg": "تم بنجاح ارسال الرسالة",
+    "code": "Ok 000",
+    "count_delivered_msg": "99",
+    "full_massage": "Ok 000, Message Has Been Sent, [99] ID:9999"
+}
+```
+On Errors 
+ERR: Error number
 ---
 
 ##### ``sendToOne();`` 
@@ -64,40 +74,39 @@ And
 `$message`
 
 ```php
-    $msg =  'In The Name Of Allah Most Merciful';
-    $user = App\User::first();
-   $response = Sms2Net::sendToMany($user->phone_number,$msg);
+$msg =  'In The Name Of Allah Most Merciful';
+$user = App\User::first();
+$response = Sms2Net::sendToMany($user->phone_number,$msg);
 ```
 On Success
-   ```json
-         {
-           "msg": "تم بنجاح ارسال الرسالة",
-           "code": "Ok 000",
-           "count_delivered_msg": "99",
-           "full_massage": "Ok 000, Message Has Been Sent, [99] ID:9999"
-         }
-   ```
-On  // Errors 
- ```json
-    ERR: Error number
- ```
+```json
+{
+   "msg": "تم بنجاح ارسال الرسالة",
+   "code": "Ok 000",
+   "count_delivered_msg": "99",
+   "full_massage": "Ok 000, Message Has Been Sent, [99] ID:9999"
+}
+```
+On Errors 
+```shell
+ERR: Error number
+```
 
 ---
 #### `geBalance()`
 This will return the number of credits available on this particular account. The account balance is returned
 as a floating point value.
 ```php
-
-  $balance = Sms2Net::geBalance();
-   return $balance;
+$balance = Sms2Net::geBalance();
+return $balance;
 ```
 On Success 
 ```json
-    {
-      "msg": "النقاط المتوفرة ",
-      "full_massage": "Credit = 232340",
-      "points": "232340"
-    }
+{
+  "msg": "النقاط المتوفرة ",
+  "full_massage": "Credit = 232340",
+  "points": "232340"
+}
 ```
 
 ---
@@ -105,9 +114,7 @@ On Success
 This will return a list of all user messages in an XML format.
 it returned XML Format
 ```php
-
-    Sms2Net::getMessages();
-    
+Sms2Net::getMessages(); 
 ```
 On Success 
 ```xml
@@ -124,7 +131,7 @@ On Success
 This function to email web service to contact us
 it returned XML Format
 ```php
-    Sms2Net::contactUs('test@gmail.com', 'A Test Message'); 
+Sms2Net::contactUs('test@gmail.com', 'A Test Message'); 
 ```
 On Success 
 ```xml
@@ -139,9 +146,7 @@ On Success
 This will return a list of all groups for specific user in an XML format
 --it returned XML Format
 ```php
-
-    Sms2Net::getGroups();
-    
+Sms2Net::getGroups(); 
 ```
 On Success 
 ```xml
@@ -157,9 +162,8 @@ On Success
 This will return a list of all groups for specific user in an XML format
 --it returned XML Format
 ```php
-    $groupID = 212312;
-    Sms2Net::getGroup($groupID);
-    
+$groupID = 212312;
+Sms2Net::getGroup($groupID);
 ```
 On Success 
 ```xml
@@ -170,14 +174,12 @@ On Success
     <MemberMobile>xxxx</MemberMobile>
 </Members>
 ```
-
-
 ---
 #### `phoneBook()`
 This will return a list of all groups & members for specific user and in an XML format
 --it returned XML Format
 ```php
-    Sms2Net::phoneBook();
+Sms2Net::phoneBook();
 ```
 On Success 
 ```xml
@@ -194,13 +196,12 @@ On Success
     </Group>
 </PhoneBook>
 ```
-
 ---
 #### `sender()`
 This will return a list of all Senders for specific user in an XML format
 --it returned XML Format
 ```php
-    Sms2Net::sender();
+Sms2Net::sender();
 ```
 On Success 
 ```xml
@@ -217,7 +218,6 @@ Always Welcome :revolving_hearts:
 If you discover any security related issues, please email zymawy@gmail.com instead of using the issue tracker.
 ## Contact
 Twitter [@RttCy](https://twitter.com/RttCy)
-
 ## License
 Laravel-Sms2net
 is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
