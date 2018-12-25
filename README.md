@@ -22,12 +22,11 @@ In The Same File Place The Facade Inside `alias array`.
 
 Finally, You Need To Publish The Config File And The Lang File. 
 So You Can Provide The Account Credentials.
-`php artisan vendor:publish --provider="Zymawy\Sms2Net\Sms2NetServiceProvider"`
+```Shell
+    php artisan vendor:publish --provider="Zymawy\Sms2Net\Sms2NetServiceProvider"
+```
 
 # Available Functions
-
----
-
 ##### ``sendToMany();`` 
 ### This Function Just If You Want To Send A Heavy array of numbers since it take time to process. Use `sendToOne` Instead For Preference. 
  || it take to arguments 
@@ -212,17 +211,16 @@ On Success
     <SenderStatus>xxxx</ SenderStatus>
 </Senders>
 ```
-#Contributing
-
-#Security 
+## Contributing
+Always Welcome :revolving_hearts: 
+## Security 
 If you discover any security related issues, please email zymawy@gmail.com instead of using the issue tracker.
-
-
-
-#Contact
+## Contact
 Twitter [@RttCy](https://twitter.com/RttCy)
 
-#License
+## License
 Laravel-Sms2net
 is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-© 2017 Hamza Zymawy, All rights reserved.
+<br />
+<br />
+© 2018 Hamza Zymawy, All rights reserved.
